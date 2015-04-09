@@ -1,4 +1,5 @@
 require "Pry"
+require "HighLine"
 
 ##########################
 #CLASS DECLARATION
@@ -6,28 +7,44 @@ require "Pry"
 
 class KeynotePresentation
 
- def initialize
-   @file_source = "keynote.txt"
-   @text_source 
- end	
+  def initialize
+    @file_source = "keynote.txt"
+    @arr_text_source
+    @keynote_hash = {}
+    @screen_size = HighLine::SystemExtensions.terminal_size 
+  end	
   
- def text_process
+  def text_process
+   
+    @arr_text_source = IO.read("keynote.txt").split("\n----\n")
 
- end	
+    i = 0
 
+    while i < @arr_text_source.length
+      @keynote_hash[@arr_text_source[i]] = i
+      i = i + 1
+    end
+    puts @keynote_hash
+    puts @screen_size	  
 
- def load_text
- 	@text_source = IO.read("keynote.txt").split("\n----\n") 
-    binding.pry
-    return @text_source
-    
- end	
+  end	
+
+  def load_text
+  end	
+
+  def navigation
+  end
 
 end 
+
+class Text
+
+end	
 
 ##########################
 #MAIN
 ##########################
 
-puts KeynotePresentation.new.load_text
+KeynotePresentation.new.text_process
+
 
