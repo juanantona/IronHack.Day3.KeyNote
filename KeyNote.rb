@@ -76,9 +76,3 @@ end
 ##########################
 
 KeynotePresentation.new(Text_Process.new.load_text_to_array).navigation
-
-
-
-# "\n"*((@screen_size[1] - page.size)/2) + page + "\n"*((@screen_size[1] - page.size)/2) +
-#   	         "\n"*((@screen_size[1]-1)/2)
-
