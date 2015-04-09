@@ -15,11 +15,16 @@ class KeynotePresentation
   end	
   
   def navigation
-    show_page(@arr_pagination, @@index)
+    show_page(process_pagination(@arr_pagination), @@index)
+    
     while @command != "exit"
       print ">"
       @command = gets.chomp
-      show_page(@arr_pagination, process_index(@@index, @command))
+      begin #En caso de que se meta un comando erroneo capturo el error
+        show_page(process_pagination(@arr_pagination), process_index(@@index, @command))
+      rescue
+        puts "Wrong command"
+      end    
     end	
   end
   
@@ -35,8 +40,6 @@ class KeynotePresentation
         return @@index = index.pred
       end
       return @@index
-    else
-      return @@index
     end   
 
   end
@@ -44,6 +47,14 @@ class KeynotePresentation
   def show_page(arr, index)
     puts arr[index]
   end
+
+  def process_pagination(arr)
+  	arr.map do |page|
+  	  "\n"*((@screen_size[1]-1)/2) + 
+  	  " "*((@screen_size[0]-page.size)/2) + page + " "*((@screen_size[0]-page.size)/2) +
+  	  "\n"*((@screen_size[1]-1)/2)
+  	  end
+  end	
 
 end 
 
@@ -68,5 +79,6 @@ KeynotePresentation.new(Text_Process.new.load_text_to_array).navigation
 
 
 
-
+# "\n"*((@screen_size[1] - page.size)/2) + page + "\n"*((@screen_size[1] - page.size)/2) +
+#   	         "\n"*((@screen_size[1]-1)/2)
 
